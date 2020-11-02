@@ -56,7 +56,7 @@ $(document).ready(function () {
                     </tr>`
                     }
                     document.getElementById('combo_row').innerHTML = prod;
-
+//
                 }
                 //fim tabela
             } catch (error) {
