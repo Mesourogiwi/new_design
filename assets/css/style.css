@@ -27,6 +27,12 @@ body {
   padding-top: 20px;
 }
 
+.module {
+  border-radius: .25rem;
+  margin-bottom: 1rem;
+}
+
+
 .left {
     left: 0;
     background-color: #f2f2f2;
