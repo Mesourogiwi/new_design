@@ -1,32 +1,14 @@
+var url = "http://localhost:3333"
 var products = []
 var prod = []
 var topics = []
 var uses = []
 $(document).ready(function () {
-
-    
-    async function getProducts() {
-        try {
-            const response = await fetch("http://localhost:3333/profinal", {
-                method: 'get'
-            });
-            const data = await response.json();
-            for (let i = 0; i < data.length; i++) {
-                prod = prod+  `<tr>
-                <th scope="row">`+ (i + 1) + `</th>
-                <td>`+ data[i].Product.product + `</td>
-                </tr>`
-            }
-            document.getElementById('combo_row').innerHTML = prod;
-        } catch(error) {
-            console.log(error)
-        }
-    }
     getProducts();
 
     async function getTopics() {
         try {
-            const response = await fetch("http://localhost:3333/topics", {
+            const response = await fetch(`${url}topics`, {
                 method: 'get'
             });
             const data = await response.json();
@@ -39,7 +21,7 @@ $(document).ready(function () {
 
     async function getUses() {
         try {
-            const response = await fetch("http://localhost:3333/uses", {
+            const response = await fetch(`${url}/uses`, {
                 method: 'get'
             });
             const data = await response.json();
@@ -68,7 +50,7 @@ $(document).ready(function () {
     }
     async function getProducts() {
         try {
-            const response = await fetch("http://localhost:3333/profinal/filter", {
+            const response = await fetch(`${url}/profinal/filter`, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -76,19 +58,19 @@ $(document).ready(function () {
                 body: JSON.stringify({ uses: uses, topics: topics })
             });
             const data = await response.json();
+            console.log(data);
 
             //tabela product
             if (products != data) {
 
                 products = data
                 prod = []
-                console.log(uses);
-                console.log(topics);
                 for (let i = 0; i < products.length; i++) {
-                    console.log(products[i].Product)
                     prod = prod+  `<tr>
                     <th scope="row">`+ (i + 1) + `</th>
                     <td>`+ products[i].Product.product + `</td>
+                    <td> ${data[i].Use.use} </td>
+                    <td> ${data[i].Topic.topic} </td>
                     </tr>`
                 }
                 document.getElementById('combo_row').innerHTML = prod;
@@ -101,7 +83,7 @@ $(document).ready(function () {
     }
     async function topicsByUses() {
         try {
-            const response = await fetch("http://localhost:3333/profinal", {
+            const response = await fetch(`${url}/profinal`, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
