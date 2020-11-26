@@ -1,14 +1,17 @@
-var url = "http://localhost:3333"
+
+var url = "https://nutraceuticals.herokuapp.com"
 var products = []
 var prod = []
 var topics = []
 var uses = []
+var numTopic = 0
+var numUses = 0
 $(document).ready(function () {
     getProducts();
 
     async function getTopics() {
         try {
-            const response = await fetch(`${url}topics`, {
+            const response = await fetch(`${url}/topics`, {
                 method: 'get'
             });
             const data = await response.json();
@@ -60,20 +63,51 @@ $(document).ready(function () {
             const data = await response.json();
             console.log(data);
 
+            if(numTopic < topics.length){
+                numTopic ++
+            }
+            if(numTopic > topics.length){
+                numTopic --
+            }
+            if(numUses < uses.length){
+                numUses ++
+            }
+            if(numUses > uses.length){
+                numUses --
+            }
+
             //tabela product
             if (products != data) {
 
                 products = data
                 prod = []
+                console.log(numTopic)
+                console.log(numUses)
                 for (let i = 0; i < products.length; i++) {
                     prod = prod+  `<tr>
                     <th scope="row">`+ (i + 1) + `</th>
                     <td>`+ products[i].Product.product + `</td>
                     <td> ${data[i].Use.use} </td>
                     <td> ${data[i].Topic.topic} </td>
+                    <td> ${data[i].evidence} </td>
+                    <td> ${data[i].consistency} </td>
+                    <td> ${data[i].efficiency} </td>
                     </tr>`
                 }
                 document.getElementById('combo_row').innerHTML = prod;
+                $("#prod_count").html(`Product ${data.length}`);
+                if(numTopic === 0) {
+                    $("#topic_count").html("Topic " + $("#topic > option").length);
+                }
+                else{
+                    $("#topic_count").html(`Topic ${numTopic}`);
+                }
+                if(numUses === 0) {
+                    $("#use_count").html("Use " + $("#uses > option").length);
+                }
+                else{
+                    $("#use_count").html(`Use ${numUses}`);
+                }
 //
             }
             //fim tabela
