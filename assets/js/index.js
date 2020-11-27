@@ -90,8 +90,8 @@ $(document).ready(function () {
                     <td> ${data[i].Use.use} </td>
                     <td> ${data[i].Topic.topic} </td>
                     <td> ${data[i].evidence} </td>
-                    <td> ${data[i].consistency} </td>
                     <td> ${data[i].efficiency} </td>
+                    <td> ${data[i].consistency} </td>
                     </tr>`
                 }
                 document.getElementById('combo_row').innerHTML = prod;
