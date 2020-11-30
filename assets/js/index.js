@@ -89,6 +89,7 @@ $(document).ready(function () {
                     <td>`+ products[i].Product.product + `</td>
                     <td> ${data[i].Use.use} </td>
                     <td> ${data[i].Topic.topic} </td>
+                    <td> ${data[i].suggestion} </td>
                     <td> ${data[i].evidence} </td>
                     <td> ${data[i].efficiency} </td>
                     <td> ${data[i].consistency} </td>
