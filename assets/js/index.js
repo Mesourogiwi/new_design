@@ -4,6 +4,8 @@ var products = []
 var prod = []
 var topics = []
 var uses = []
+var allergy = ['milk']
+var diet = ['vegan']
 var numTopic = 0
 var numUses = 0
 $(document).ready(function () {
@@ -38,6 +40,8 @@ $(document).ready(function () {
     getUses();
     $('#uses').SumoSelect();
     $('#topic').SumoSelect();
+    $('#allergy').SumoSelect();
+    $('#diet').SumoSelect();
 
 
     function showAllTopics(topics) {
@@ -51,6 +55,22 @@ $(document).ready(function () {
             $("#uses")[0].sumo.add(uses[i].id_use, uses[i].use)
         }
     }
+    function showAllAllergies(allergy) {
+
+        for (let i = 0; i < allergy.length; i++) {
+            $("#allergy")[0].sumo.add(allergy[i])
+        }
+    }
+    function showAllDiets(diet) {
+
+        for (let i = 0; i < diet.length; i++) {
+            $("#diet")[0].sumo.add(diet[i])
+        }
+    }
+
+    showAllAllergies(allergy)
+    showAllDiets(diet)
+
     async function getProducts() {
         try {
             const response = await fetch(`${url}/profinal/filter`, {
