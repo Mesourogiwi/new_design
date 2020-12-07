@@ -4,7 +4,9 @@ var products = []
 var prod = []
 var topics = []
 var uses = []
-var allergy = ['milk']
+var allergy = ['Milk', 'Peanut', 'Eggs', 'Fish', 'Walnuts']
+var selectedAllergies = []
+var selectedDiets = 0
 var diet = ['vegan']
 var numTopic = 0
 var numUses = 0
@@ -55,18 +57,20 @@ $(document).ready(function () {
             $("#uses")[0].sumo.add(uses[i].id_use, uses[i].use)
         }
     }
-    function showAllAllergies(allergy) {
 
+    function showAllAllergies(allergy) {
         for (let i = 0; i < allergy.length; i++) {
             $("#allergy")[0].sumo.add(allergy[i])
         }
     }
+
     function showAllDiets(diet) {
 
         for (let i = 0; i < diet.length; i++) {
             $("#diet")[0].sumo.add(diet[i])
         }
     }
+
 
     showAllAllergies(allergy)
     showAllDiets(diet)
@@ -78,8 +82,10 @@ $(document).ready(function () {
                     'Content-Type': 'application/json'
                 },
                 method: 'post',
-                body: JSON.stringify({ uses: uses, topics: topics })
+                body: JSON.stringify({ uses: uses, topics: topics,vegan: selectedDiets, allergies: selectedAllergies})
             });
+            console.log(selectedAllergies);
+            console.log(selectedDiets);
             const data = await response.json();
             console.log(data);
 
@@ -174,6 +180,24 @@ $(document).ready(function () {
         var optionSelected = $("option:selected", this);
         for (let i = 0; i < optionSelected.length; i++) {
             topics[i] = optionSelected[i].value;
+        }
+        getProducts();
+    });
+
+    $('#allergy').on('change', function (e) {
+        selectedAllergies = []
+        var optionSelected = $("option:selected", this);
+        for (let i = 0; i < optionSelected.length; i++) {
+            selectedAllergies[i] = optionSelected[i].label;
+        }
+        getProducts();
+    });
+    $('#diet').on('change', function (e) {
+        if(selectedDiets) {
+            selectedDiets = 0
+        }
+        else {
+            selectedDiets = 1
         }
         getProducts();
     });
